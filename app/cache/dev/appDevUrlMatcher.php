@@ -135,12 +135,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // _welcome
+        // rigauxt_alumni_index
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', '_welcome');
+                return $this->redirect($pathinfo.'/', 'rigauxt_alumni_index');
             }
 
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::indexAction',  '_route' => 'rigauxt_alumni_index',);
+        }
+
+        // _welcome
+        if ($pathinfo === '/welcome') {
             return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
         }
 

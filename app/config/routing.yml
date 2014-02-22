@@ -1,0 +1,4 @@
+rigauxt_alumni:
+    resource: "@RigauxtAlumniBundle/Resources/config/routing.yml"
+    prefix:   /
+

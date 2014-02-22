@@ -2,4 +2,4 @@ _assetic:
     resource: .
     type: assetic
 _app:
-    resource: /var/www/alumni/app/config/routing_dev.yml
+    resource: /var/www/Alumni/app/config/routing_dev.yml
