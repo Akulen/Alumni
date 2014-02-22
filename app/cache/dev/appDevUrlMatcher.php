@@ -144,6 +144,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::indexAction',  '_route' => 'rigauxt_alumni_index',);
         }
 
+        // rigauxt_alumni_test
+        if ($pathinfo === '/test') {
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::testAction',  '_route' => 'rigauxt_alumni_test',);
+        }
+
         // _welcome
         if ($pathinfo === '/welcome') {
             return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
