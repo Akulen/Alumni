@@ -145,8 +145,31 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // rigauxt_alumni_test
-        if ($pathinfo === '/test') {
+        if ($pathinfo === '/Test') {
             return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::testAction',  '_route' => 'rigauxt_alumni_test',);
+        }
+
+        if (0 === strpos($pathinfo, '/A')) {
+            // rigauxt_alumni_assoc
+            if ($pathinfo === '/Association') {
+                return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::assocAction',  '_route' => 'rigauxt_alumni_assoc',);
+            }
+
+            // rigauxt_alumni_adhesion
+            if ($pathinfo === '/Adherer') {
+                return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::adhesionAction',  '_route' => 'rigauxt_alumni_adhesion',);
+            }
+
+        }
+
+        // rigauxt_alumni_contact
+        if ($pathinfo === '/Contact') {
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::contactAction',  '_route' => 'rigauxt_alumni_contact',);
+        }
+
+        // rigauxt_alumni_promotions
+        if ($pathinfo === '/Promotions') {
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::promotionsAction',  '_route' => 'rigauxt_alumni_promotions',);
         }
 
         // _welcome
