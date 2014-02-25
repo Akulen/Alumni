@@ -1,4 +1,13 @@
+login:
+    pattern: /login
+    defaults: { _controller: RigauxtUserBundle:Security:login }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
+
 rigauxt_alumni:
     resource: "@RigauxtAlumniBundle/Resources/config/routing.yml"
     prefix:   /
-

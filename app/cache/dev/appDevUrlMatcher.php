@@ -135,18 +135,40 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // rigauxt_alumni_index
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'rigauxt_alumni_index');
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'Rigauxt\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
+                }
+
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array('_route' => 'login_check');
+                }
+
             }
 
-            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::indexAction',  '_route' => 'rigauxt_alumni_index',);
+            // logout
+            if ($pathinfo === '/logout') {
+                return array('_route' => 'logout');
+            }
+
         }
 
-        // rigauxt_alumni_test
-        if ($pathinfo === '/Test') {
-            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::testAction',  '_route' => 'rigauxt_alumni_test',);
+        // rigauxt_alumni_index
+        if (preg_match('#^/(?P<page>-?\\d*)?$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_alumni_index')), array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::indexAction',  'page' => 0,));
+        }
+
+        // rigauxt_alumni_forum
+        if ($pathinfo === '/Forum') {
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::forumAction',  '_route' => 'rigauxt_alumni_forum',);
+        }
+
+        // rigauxt_alumni_blog
+        if ($pathinfo === '/Blog') {
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::blogAction',  '_route' => 'rigauxt_alumni_blog',);
         }
 
         if (0 === strpos($pathinfo, '/A')) {
