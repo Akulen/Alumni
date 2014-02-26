@@ -135,6 +135,24 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/news')) {
+            // rigauxt_news_add
+            if ($pathinfo === '/news/add') {
+                return array (  '_controller' => 'Rigauxt\\NewsBundle\\Controller\\NewsController::addAction',  '_route' => 'rigauxt_news_add',);
+            }
+
+            // rigauxt_news_edit
+            if (0 === strpos($pathinfo, '/news/edit') && preg_match('#^/news/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_news_edit')), array (  '_controller' => 'Rigauxt\\NewsBundle\\Controller\\NewsController::editAction',));
+            }
+
+            // rigauxt_news_remove
+            if (0 === strpos($pathinfo, '/news/remove') && preg_match('#^/news/remove/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_news_remove')), array (  '_controller' => 'Rigauxt\\NewsBundle\\Controller\\NewsController::removeAction',));
+            }
+
+        }
+
         // rigauxt_alumni_index
         if (preg_match('#^/(?P<page>-?\\d*)?$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_alumni_index')), array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::indexAction',  'page' => 0,));

@@ -1,3 +1,7 @@
+rigauxt_news:
+    resource: "@RigauxtNewsBundle/Resources/config/routing.yml"
+    prefix:   /news
+
 rigauxt_alumni:
     resource: "@RigauxtAlumniBundle/Resources/config/routing.yml"
     prefix:   /

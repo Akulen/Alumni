@@ -20,6 +20,7 @@
       <parameter key="RigauxtUserBundle">Rigauxt\UserBundle\RigauxtUserBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="OrnicarGravatarBundle">Ornicar\GravatarBundle\OrnicarGravatarBundle</parameter>
+      <parameter key="RigauxtNewsBundle">Rigauxt\NewsBundle\RigauxtNewsBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -299,7 +300,7 @@
     <parameter key="security.authentication.hide_user_not_found">true</parameter>
     <parameter key="security.role_hierarchy.roles" type="collection">
       <parameter key="ROLE_ADMIN" type="collection">
-        <parameter>ROLE_USER</parameter>
+        <parameter>ROLE_AUTEUR</parameter>
       </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
         <parameter>ROLE_ADMIN</parameter>
@@ -1911,6 +1912,12 @@
         <argument>pt_BR</argument>
         <argument>FOSUserBundle</argument>
       </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>/var/www/Alumni/src/Rigauxt/NewsBundle/Resources/translations/messages.fr.xlf</argument>
+        <argument>fr</argument>
+        <argument>messages</argument>
+      </call>
     </service>
     <service id="translation.loader.php" class="Symfony\Component\Translation\Loader\PhpFileLoader">
       <tag name="translation.loader" alias="php"/>
@@ -2857,7 +2864,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>530da08f1addc</argument>
+            <argument>530dc0e5e2055</argument>
           </service>
         </argument>
       </argument>
@@ -2906,7 +2913,7 @@
     <service id="security.role_hierarchy" class="Symfony\Component\Security\Core\Role\RoleHierarchy" public="false">
       <argument type="collection">
         <argument key="ROLE_ADMIN" type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>ROLE_AUTEUR</argument>
         </argument>
         <argument key="ROLE_SUPER_ADMIN" type="collection">
           <argument>ROLE_ADMIN</argument>
@@ -3171,7 +3178,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>530da08f1addc</argument>
+            <argument>530dc0e5e2055</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3595,6 +3602,7 @@
               <argument key="RigauxtAlumniBundle">Rigauxt\AlumniBundle\Entity</argument>
               <argument key="RigauxtUserBundle">Rigauxt\UserBundle\Entity</argument>
               <argument key="FOSUserBundle">FOS\UserBundle\Entity</argument>
+              <argument key="RigauxtNewsBundle">Rigauxt\NewsBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -3634,6 +3642,7 @@
                       <argument type="collection">
                         <argument>/var/www/Alumni/src/Rigauxt/AlumniBundle/Entity</argument>
                         <argument>/var/www/Alumni/src/Rigauxt/UserBundle/Entity</argument>
+                        <argument>/var/www/Alumni/src/Rigauxt/NewsBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
@@ -3646,10 +3655,24 @@
                       <argument type="collection">
                         <argument>/var/www/Alumni/src/Rigauxt/AlumniBundle/Entity</argument>
                         <argument>/var/www/Alumni/src/Rigauxt/UserBundle/Entity</argument>
+                        <argument>/var/www/Alumni/src/Rigauxt/NewsBundle/Entity</argument>
                       </argument>
                     </service>
                   </argument>
                   <argument>Rigauxt\UserBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>/var/www/Alumni/src/Rigauxt/AlumniBundle/Entity</argument>
+                        <argument>/var/www/Alumni/src/Rigauxt/UserBundle/Entity</argument>
+                        <argument>/var/www/Alumni/src/Rigauxt/NewsBundle/Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Rigauxt\NewsBundle\Entity</argument>
                 </call>
                 <call method="addDriver">
                   <argument type="service">
@@ -4177,6 +4200,10 @@
       <call method="addPath">
         <argument>/var/www/Alumni/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views</argument>
         <argument>FOSUser</argument>
+      </call>
+      <call method="addPath">
+        <argument>/var/www/Alumni/src/Rigauxt/NewsBundle/Resources/views</argument>
+        <argument>RigauxtNews</argument>
       </call>
       <call method="addPath">
         <argument>/var/www/Alumni/src/Acme/DemoBundle/Resources/views</argument>
