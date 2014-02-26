@@ -72,3 +72,8 @@ fos_user:
     db_driver:		orm
     firewall_name:	main
     user_class:		Rigauxt\UserBundle\Entity\User
+
+ornicar_gravatar:
+    rating: g
+    size: 160
+    default: identicon

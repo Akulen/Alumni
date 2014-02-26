@@ -173,6 +173,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::promotionsAction',  '_route' => 'rigauxt_alumni_promotions',);
         }
 
+        // rigauxt_alumni_change_locale
+        if ($pathinfo === '/changeLanguage') {
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::changeLocaleAction',  '_route' => 'rigauxt_alumni_change_locale',);
+        }
+
+        // rigauxt_user_profile
+        if (0 === strpos($pathinfo, '/profile') && preg_match('#^/profile/(?P<username>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_user_profile')), array (  '_controller' => 'RigauxtUserBundle:Profile:show',));
+        }
+
         if (0 === strpos($pathinfo, '/log')) {
             if (0 === strpos($pathinfo, '/login')) {
                 // fos_user_security_login
