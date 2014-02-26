@@ -188,7 +188,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         // rigauxt_alumni_promotions
         if ($pathinfo === '/Promotions') {
-            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\DefaultController::promotionsAction',  '_route' => 'rigauxt_alumni_promotions',);
+            return array (  '_controller' => 'Rigauxt\\AlumniBundle\\Controller\\PromotionsController::indexAction',  '_route' => 'rigauxt_alumni_promotions',);
         }
 
         // rigauxt_alumni_change_locale
