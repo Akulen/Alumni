@@ -142,12 +142,12 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             // rigauxt_news_edit
-            if (0 === strpos($pathinfo, '/news/edit') && preg_match('#^/news/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            if (0 === strpos($pathinfo, '/news/edit') && preg_match('#^/news/edit/(?P<slug>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_news_edit')), array (  '_controller' => 'Rigauxt\\NewsBundle\\Controller\\NewsController::editAction',));
             }
 
             // rigauxt_news_remove
-            if (0 === strpos($pathinfo, '/news/remove') && preg_match('#^/news/remove/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            if (0 === strpos($pathinfo, '/news/remove') && preg_match('#^/news/remove/(?P<slug>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_news_remove')), array (  '_controller' => 'Rigauxt\\NewsBundle\\Controller\\NewsController::removeAction',));
             }
 
