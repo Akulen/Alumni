@@ -179,8 +179,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // rigauxt_user_profile
-        if (0 === strpos($pathinfo, '/profile') && preg_match('#^/profile/(?P<username>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_user_profile')), array (  '_controller' => 'RigauxtUserBundle:Profile:show',));
+        if (0 === strpos($pathinfo, '/show') && preg_match('#^/show/(?P<username>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'rigauxt_user_profile')), array (  '_controller' => 'Rigauxt\\UserBundle\\Controller\\ProfilController::showAction',));
         }
 
         if (0 === strpos($pathinfo, '/log')) {
