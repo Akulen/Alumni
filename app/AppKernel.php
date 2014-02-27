@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Rigauxt\NewsBundle\RigauxtNewsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Rigauxt\BlogBundle\RigauxtBlogBundle(),
+            new Rigauxt\ForumBundle\RigauxtForumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

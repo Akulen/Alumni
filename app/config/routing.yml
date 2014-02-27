@@ -1,3 +1,7 @@
+rigauxt_forum:
+    resource: "@RigauxtForumBundle/Resources/config/routing.yml"
+    prefix:   /forum
+
 rigauxt_blog:
     resource: "@RigauxtBlogBundle/Resources/config/routing.yml"
     prefix:   /blog
