@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
             new Rigauxt\NewsBundle\RigauxtNewsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Rigauxt\BlogBundle\RigauxtBlogBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
