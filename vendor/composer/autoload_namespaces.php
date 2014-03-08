@@ -20,6 +20,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Ornicar\\GravatarBundle\\' => array($vendorDir . '/ornicar/gravatar-bundle'),
     'Monolog' => array($vendorDir . '/monolog/monolog/src'),
+    'Jasny\\Twig' => array($vendorDir . '/jasny/twig-extensions/src'),
     'Incenteev\\ParameterHandler' => array($vendorDir . '/incenteev/composer-parameter-handler'),
     'Gedmo\\' => array($vendorDir . '/gedmo/doctrine-extensions/lib'),
     'FOS\\UserBundle' => array($vendorDir . '/friendsofsymfony/user-bundle'),

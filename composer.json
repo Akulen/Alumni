@@ -23,7 +23,8 @@
         "doctrine/data-fixtures": "@dev",
         "friendsofsymfony/user-bundle": "dev-master",
         "ornicar/gravatar-bundle" : "dev-master",
-        "stof/doctrine-extensions-bundle": "dev-master"
+        "stof/doctrine-extensions-bundle": "dev-master",
+        "jasny/twig-extensions": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
