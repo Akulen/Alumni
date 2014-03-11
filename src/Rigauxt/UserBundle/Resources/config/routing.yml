@@ -2,6 +2,10 @@ rigauxt_user_profile:
     pattern: /show/{username}
     defaults: { _controller: RigauxtUserBundle:Profil:show }
 
+rigauxt_user_avatar_remove:
+    pattern: /remove/avatar
+    defaults: { _controller: RigauxtUserBundle:Profil:removeAvatar }
+
 rigauxt_user_inbox:
     pattern: /messagerie
     defaults: { _controller: RigauxtUserBundle:Messagerie:index }

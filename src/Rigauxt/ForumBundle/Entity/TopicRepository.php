@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class TopicRepository extends EntityRepository
 {
+	public function getLastPost($id)
+	{
+		$retour = $this->getEntityManager()
+						->createQueryBuilder()
+						->select('t')
+						->from('RigauxtForumBundle:Topic', 't')
+						->where('t.id = :id')
+						->setParameter('id', $id)
+						->leftJoin('t.posts', 'p')
+						->addSelect('p')
+						->OrderBy('p.date', 'DESC')
+						->getQuery()
+						->setFirstResult(0)
+						->setMaxResults(1)
+						->getOneOrNullResult();
+		$latest = null;
+		if($retour != null)
+			$latest = $retour->getPosts()->first();
+		return $latest;
+	}
 }

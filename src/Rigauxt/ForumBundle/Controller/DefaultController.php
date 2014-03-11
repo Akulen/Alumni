@@ -11,6 +11,7 @@ class DefaultController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
     	$categorieRepo = $em->getRepository("RigauxtForumBundle:Categorie");
+    	$topicRepo = $em->getRepository("RigauxtForumBundle:Topic");
     	$pere = null;
     	$topics = null;
     	$postIts = null;
@@ -65,14 +66,32 @@ class DefaultController extends Controller
 	    	$themes[$prevCategorie->getTheme()] = $curGroup;
 	    	$themesPost[$prevCategorie->getTheme()] = $curGroupPost;
 	    }
+	    $topicLastPost = array();
+	    $postItLastPost = array();
+	    if($topics != null)
+	    {
+			foreach($topics as $id => $topic)
+			{
+				$topicLastPost[$id] = $topicRepo->getLastPost($topic->getId());
+			}
+		}
+	    if($postIts != null)
+	    {
+			foreach($postIts as $id => $topic)
+			{
+				$postItLastPost[$id] = $topicRepo->getLastPost($topic->getId());
+			}
+		}
         return $this->render('RigauxtForumBundle:Default:index.html.twig', array(
         	"themes"		=> $themes,
         	"themesPost"	=> $themesPost,
         	"ariane"		=> $ariane,
         	"topics"		=> $topics,
+        	"topicLastPost"	=> $topicLastPost,
         	"slug"			=> $slugPere,
         	"titre"			=> $titrePere,
         	"postIts"		=> $postIts,
+        	"postItLastPost"	=> $postItLastPost,
         ));
     }
 }

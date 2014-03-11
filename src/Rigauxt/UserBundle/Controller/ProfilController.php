@@ -21,4 +21,16 @@ class ProfilController extends Controller
 			"user" => $user
 		));
 	}
+	
+	public function removeAvatarAction()
+	{
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+		{
+			return $this->redirect($this->generateUrl("rigauxt_alumni_index"));
+		}
+		$user->preRemoveUpload();
+		$user->removeUpload();
+		return $this->redirect($this->generateUrl("fos_user_profile_show"));
+	}
 }
