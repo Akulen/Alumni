@@ -1,0 +1,7 @@
+<form action="{{ path('fos_user_security_check') }}" method="post"{% if navbar %} class="navbar-form navbar-right"{% endif %}>
+	<div class="form-group" style="margin-bottom: 0">
+		<input type="text" id="username" name="_username" class="form-control" placeholder="{% if last_username %}{{ last_username }}{% else %}Pseudo{% endif %}" />
+		<input type="password" id="password" name="_password" class="form-control" placeholder="Mot de Passe" />
+		<button type="submit" class="btn btn-success"{% if navbar == false %} style="width: 100%"{% endif %}>Log in</button>
+	</div>
+</form>

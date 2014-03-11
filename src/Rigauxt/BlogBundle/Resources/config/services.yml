@@ -1,0 +1,7 @@
+parameters:
+#    rigauxt_blog.example.class: Rigauxt\BlogBundle\Example
+
+services:
+#    rigauxt_blog.example:
+#        class: %rigauxt_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

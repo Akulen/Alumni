@@ -1,0 +1,305 @@
+<?php
+
+namespace Rigauxt\UserBundle\Entity;
+
+use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use Rigauxt\AlumniBundle\Entity\Promotion;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * User
+ *
+ * @ORM\Table("alumni_user")
+ * @ORM\Entity(repositoryClass="Rigauxt\UserBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class User extends BaseUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    protected $nom;
+    
+    /**
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
+     */
+    protected $prenom;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Rigauxt\AlumniBundle\Entity\Promotion", inversedBy="users", cascade={"persist"})
+     * @ORM\OrderBy({"nom"="ASC"})
+     */
+    protected $promotion;
+    
+    /**
+     * @ORM\Column(name="updatedAt", type="datetime")
+     */
+    protected $updatedAt;
+    
+    protected $image;
+    
+    protected $tempFilename;
+    
+    /**
+     * @ORM\Column(name="avatarExtension", type="string", length=255, nullable=true)
+     */
+    protected $avatarExtension;
+    
+    /**
+     * @ORM\Column(name="avatarAlt", type="string", length=255, nullable=true)
+     */
+    protected $avatarAlt;
+	
+	public function __construct()
+	{
+		parent::__construct();
+		$this->roles = array('ROLE_USER');
+	}
+	
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set promotion
+     *
+     * @param string $promotion
+     * @return User
+     */
+    public function setPromotion($promotion)
+    {
+    	if($this->promotion != null)
+    		$this->promotion->removeUser($this);
+    	$promotion->addUser($this);
+        $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    /**
+     * Get promotion
+     *
+     * @return string 
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return User
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return User
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string 
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set avatarExtension
+     *
+     * @param string $avatarExtension
+     * @return User
+     */
+    public function setAvatarExtension($avatarExtension)
+    {
+        $this->avatarExtension = $avatarExtension;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarExtension
+     *
+     * @return string 
+     */
+    public function getAvatarExtension()
+    {
+        return $this->avatarExtension;
+    }
+    
+	public function setImage(UploadedFile $file)
+	{
+		$this->image = $file;
+		
+		if (null !== $this->avatarExtension)
+		{
+			$this->tempFilename = $this->avatarExtension;
+			
+			$this->avatarExtension = null;
+			$this->avatarAlt = null;
+		}
+	}
+    
+	public function getImage()
+	{
+		return $this->image;
+	}
+
+	/**
+	* @ORM\PrePersist
+	* @ORM\PreUpdate
+	*/
+	public function preUpload()
+	{
+		if (null === $this->image)
+			return;
+		
+		$this->avatarExtension =$this->image->guessExtension();
+		
+		$this->avatarAlt = $this->image->getClientOriginalName();
+	}
+
+	/**
+	* @ORM\PostPersist
+	* @ORM\PostUpdate
+	*/
+	public function upload()
+	{
+		if (null === $this->image)
+			return;
+
+		if (null !== $this->tempFilename)
+		{
+			$oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
+			if (file_exists($oldFile))
+				unlink($oldFile);
+		}
+
+		$this->image->move(
+			$this->getUploadRootDir(),
+			$this->id.'.'.$this->avatarExtension
+		);
+	}
+
+	/**
+	* @ORM\PreRemove()
+	*/
+	public function preRemoveUpload()
+	{
+		$this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->avatarExtension;
+	}
+
+	/**
+	* @ORM\PostRemove()
+	*/
+	public function removeUpload()
+	{
+		if (file_exists($this->tempFilename))
+			unlink($this->tempFilename);
+	}
+
+	public function getUploadDir()
+	{
+		return 'uploads/images/avatars';
+	}
+
+	protected function getUploadRootDir()
+	{
+		return __DIR__.'/../../../../web/'.$this->getUploadDir();
+	}
+
+    /**
+     * Set avatarAlt
+     *
+     * @param string $avatarAlt
+     * @return User
+     */
+    public function setAvatarAlt($avatarAlt)
+    {
+        $this->avatarAlt = $avatarAlt;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarAlt
+     *
+     * @return string 
+     */
+    public function getAvatarAlt()
+    {
+        return $this->avatarAlt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    
+    public function getWebPath()
+	{
+		return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAvatarExtension();
+	}
+}

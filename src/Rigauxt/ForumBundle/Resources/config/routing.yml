@@ -1,0 +1,15 @@
+rigauxt_forum_index:
+    pattern:  /{slugPere}
+    defaults: { _controller: RigauxtForumBundle:Default:index, slugPere: null }
+
+rigauxt_forum_topic_view:
+    pattern:  /topic/{slug}
+    defaults: { _controller: RigauxtForumBundle:Topic:view }
+
+rigauxt_forum_topic_add:
+    pattern:  /{slug}/add/topic
+    defaults: { _controller: RigauxtForumBundle:Topic:newTopic, slug: null }
+
+rigauxt_forum_post_add:
+    pattern:  /topic/{slug}/post/new
+    defaults: { _controller: RigauxtForumBundle:Topic:newPost }

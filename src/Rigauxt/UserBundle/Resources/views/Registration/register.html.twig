@@ -1,0 +1,49 @@
+{% extends "::layout.html.twig" %}
+
+{% form_theme form 'RigauxtAlumniBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ parent() }} - Register{% endblock %}
+
+{% block body %}
+	<div class="jumbotron" style="width: 400px; margin: auto">
+		<form action="{{ path('fos_user_registration_register') }}" method="post">
+			{{ form_widget(form._token) }}
+			{{ form_errors(form) }}
+			{% for champ in form %}
+				{% if form_errors(champ) != null %}
+					<div class="alert alert-warning">
+						{{ form_errors(champ) }}
+					</div>
+				{% endif %}
+			{% endfor %}
+			{% for champs in form %}
+				{% for champ in champs %}
+					{% if form_errors(champ) != null %}
+						<div class="alert alert-warning">
+							{{ form_errors(champ) }}
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<fieldset>
+				<legend>Identifiants</legend>
+				<div class="form-group" style="margin-bottom: 0">
+					<input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" class="form-control" required="required" maxlength="255" pattern=".{2,}" placeholder="Pseudo" />
+					<input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" class="form-control" required="required" placeholder="Email" />
+					<input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" class="form-control" required="required" placeholder="Mot de Passe" />
+					<input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" class="form-control" required="required" placeholder="Vérification" />
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Données personnelles</legend>
+				<div class="form-group" style="margin-bottom: 0">
+					{{ form_widget(form.prenom, {'attr': {'placeHolder': 'Prénom'}}) }}
+					{{ form_widget(form.nom, {'attr': {'placeHolder': 'Nom'}}) }}
+					<label for="fos_user_registration_form_promotion" style="margin-left: 20px; color: #ccc" class="control-label">Promotion</label>
+					{{ form_widget(form.promotion) }}
+				</div>
+			</fieldset>
+			<button type="submit" class="btn btn-primary" style="width: 100%">Register</button>
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Profil de {{ user.username }}{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="pull-right thumbnail" style="width: 170px">
+				<img style="width: 160px; height: auto" src="{{ asset_if(user.webPath) }}" alt="{{ user.avatarAlt }}" />
+			</div>
+			{% if user.nom != null or user.prenom != null %}
+				<h1 class="titleNoms">{{ user.prenom }}{% if user.prenom != null %} {% endif %}{{ user.nom }}</h1>
+			{% endif %}
+			<h3 class="titlePseudo">{{ user.username }} {% if app.request.attributes.get('_route') == 'fos_user_profile_show' %}<a class="btn glyphicon glyphicon-edit" href="{{ path('fos_user_profile_edit') }}"></a>{% endif %}</h3>
+			{% if user.promotion.annee != 0 %}
+			<a class="btn btn-success" href="{{ path('rigauxt_alumni_promotions') }}">Promotion {{ user.promotion.annee }}</a><br />
+			{% endif %}
+			Job<br />
+			Études<br/>
+			Formation<br />
+			...
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "RigauxtBlogBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Voir - {{ article.titre }}{% endblock %}
+
+{% block rigauxtblog_body %}
+	<div class="well">
+		<h2 style="text-align: center">
+			{{ article.titre }}
+			{% if app.user == article.auteur or is_granted("ROLE_ADMIN") %}
+				<a
+					class="btn glyphicon glyphicon-edit"
+					href="{{ path('rigauxt_blog_edit', {'slug': article.slug}) }}"
+				>
+				</a>
+				<a
+					class="pull-right btn glyphicon glyphicon-remove-circle"
+					onClick="return(confirm('Etes vous sur de vouloir supprimer cet article ?'));"
+					href="{{ path('rigauxt_blog_remove', {'slug': article.slug}) }}"
+				>
+				</a>
+			{% endif %}
+		</h2>
+		<h5>
+			par
+			<a
+				style="padding: 5px"
+				class="btn btn-default"
+				href="{{ path('rigauxt_user_profile', {'username': article.auteur.username}) }}"
+			>
+				<img style="width: 20px; height: auto" src="{{ asset_if(article.auteur.webPath) }}" alt="{{ article.auteur.avatarAlt }}" />
+				{% if article.auteur.nom != null or article.auteur.prenom != null %}
+					{{ article.auteur.prenom }}
+					{% if article.auteur.prenom != null %}
+					{% endif %}
+					{{ article.auteur.nom }}
+				{% else %}
+					{{ article.auteur.username }}
+				{% endif %}
+			</a>
+		</h5>
+		
+		<p style="margin-left:20px; margin-right:20px; text-align: justify">
+			{{ article.contenu|nl2br }}
+		</p>
+		<p>
+			<small class="pull-right">{{ article.date|date("d/m/Y") }}</small>
+		</p>
+	</div>
+{% endblock %}

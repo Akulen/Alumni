@@ -1,0 +1,29 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Login{% endblock %}
+
+{% block body %}
+	<div class="jumbotron" style="width: 400px; margin: auto">
+		{% if error %}
+			<div class="alert alert-danger">
+				{{ error }}
+			</div>
+		{% endif %}
+		<form action="{{ path('fos_user_security_check') }}" method="post">
+			<fieldset>
+				<legend>Connection</legend>
+				<div class="form-group" style="margin-bottom: 0">
+					<input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" placeholder="Pseudo" />
+					<input type="password" id="password" name="_password" class="form-control" placeholder="Mot de Passe" />
+					<div class="checkbox">
+						<label for="remember_me" style="color: #AAA">
+							<input type="checkbox" id="remember_me" name="_remember_me" value="on">
+							Se souvenir de moi
+						</label>
+					</div>
+					<button type="submit" class="btn btn-success" style="width: 100%">Log in</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

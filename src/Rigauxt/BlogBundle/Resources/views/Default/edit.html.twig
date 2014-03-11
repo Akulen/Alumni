@@ -1,0 +1,26 @@
+{% extends "RigauxtBlogBundle::layout.html.twig" %}
+
+{% form_theme form 'RigauxtAlumniBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ parent() }} - Éditer - {{ titre }}{% endblock %}
+
+{% block rigauxtblog_body %}
+	<div class="jumbotron" style="width: 75%; margin: auto">
+		<form action="{{ path('rigauxt_blog_edit', {'slug': slug}) }}" method="post">
+			<fieldset>
+				<legend>Éditer</legend>
+				<div class="form-group" style="margin-bottom: 0">
+					{% if form_errors(form) %}
+						<div class="alert alert-warning">
+							{{ form_errors(form) }}
+						</div>
+					{% endif %}
+					{{ form_widget(form.titre, {'attr': {'placeHolder': 'Titre'}}) }}
+					{{ form_widget(form.contenu) }}
+					<button type="submit" class="btn btn-success" style="width: 100%">Enregistrer</button>
+					{{ form_rest(form) }}
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

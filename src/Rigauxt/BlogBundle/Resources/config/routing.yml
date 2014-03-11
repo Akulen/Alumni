@@ -1,0 +1,21 @@
+rigauxt_blog_index:
+    pattern:  /{page}
+    defaults: { _controller: RigauxtBlogBundle:Default:index, page: 0 }
+    requirements:
+        page: -?\d*
+
+rigauxt_blog_voir:
+    pattern:  /voir/{slug}
+    defaults: { _controller: RigauxtBlogBundle:Default:voir }
+
+rigauxt_blog_add:
+    pattern:  /add
+    defaults: { _controller: RigauxtBlogBundle:Default:add }
+
+rigauxt_blog_edit:
+    pattern:  /edit/{slug}
+    defaults: { _controller: RigauxtBlogBundle:Default:edit }
+
+rigauxt_blog_remove:
+    pattern:  /remove/{slug}
+    defaults: { _controller: RigauxtBlogBundle:Default:remove }

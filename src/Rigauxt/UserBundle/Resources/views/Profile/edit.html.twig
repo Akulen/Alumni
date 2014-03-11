@@ -1,0 +1,58 @@
+{% extends "::layout.html.twig" %}
+
+{% form_theme form 'RigauxtAlumniBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ parent() }} - Édition du profil de {{ app.user.username }}{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-12">
+			<img class="pull-right img-thumbnail" src="{{ gravatar(app.user.email) }}" alt="avatar https://en.gravatar.com/" />
+			<div class="jumbotron" style="width: 400px">
+				<h3 style="margin-top: 0; margin-bottom: 30px; color: #FFF" class="titlePseudo">{{ app.user.username }}</h3>
+				<form method="post" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }}>
+					{{ form_widget(form._token) }}
+					{{ form_errors(form) }}
+					{% for champ in form %}
+						{% if form_errors(champ) != null %}
+							<div class="alert alert-warning">
+								{{ form_errors(champ) }}
+							</div>
+						{% endif %}
+					{% endfor %}
+					{% for champs in form %}
+						{% for champ in champs %}
+							{% if form_errors(champ) != null %}
+								<div class="alert alert-warning">
+									{{ form_errors(champ) }}
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+					<fieldset>
+						<legend>Données personnelles</legend>
+						<div class="form-group" style="margin-bottom: 0">
+							{{ form_widget(form.prenom, {'attr': {'placeHolder': 'Prénom'}}) }}
+							{{ form_widget(form.nom, {'attr': {'placeHolder': 'Nom'}}) }}
+							<label for="fos_user_registration_form_promotion" style="margin-left: 20px; color: #ccc" class="control-label">Promotion</label>
+							{{ form_widget(form.promotion) }}
+						</div>
+					<fieldset>
+					<fieldset>
+						<legend>Avatar</legend>
+						<div class="form-group" style="margin-bottom: 0">
+							{{ form_widget(form.image) }}
+						</div>
+					<fieldset>
+					</fieldset>
+						<legend>Confirmation</legend>
+						<div class="form-group" style="margin-bottom: 0">
+							<input type="password" id="fos_user_profile_form_current_password" name="fos_user_profile_form[current_password]" required="required" class="form-control" placeholder="Mot de Passe" />
+							<button type="submit" class="btn btn-success" style="width: 100%">Modifier</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

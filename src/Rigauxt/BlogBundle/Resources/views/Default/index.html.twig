@@ -1,0 +1,88 @@
+{% extends "RigauxtBlogBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block rigauxtblog_body %}
+	<div class="row" style="text-align: center">
+		{% if is_granted("ROLE_AUTEUR") %}
+			<p>
+				<a class="btn btn-default" href="{{ path('rigauxt_blog_add') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un Article</a>
+			</p>
+		{% endif %}
+		<ul class="pagination">
+			{% for iPage in max(1,curPage-2)..min(nbPages, curPage+2) %}
+				<li{% if iPage == curPage %} class="active"{% endif %}><a href="{{ path('rigauxt_blog_index', {'page': iPage-1}) }}">{{ iPage }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	<hr>
+	
+	{% for id, article in listeArticles %}
+		{% if id != 0 %}
+		<hr>
+		{% endif %}
+		
+		<div class="row">
+			<div class="col-md-12">
+				<h2>
+					<a
+						class="removeLink"
+						href="{{ path('rigauxt_blog_voir', {'slug': article.slug}) }}"
+					>
+						{{ article.titre }}
+					</a>
+					{% if app.user == article.auteur or is_granted("ROLE_ADMIN") %}
+						<a
+							class="btn glyphicon glyphicon-edit"
+							href="{{ path('rigauxt_blog_edit', {'slug': article.slug}) }}"
+						>
+						</a>
+						<a
+							class="pull-right btn glyphicon glyphicon-remove-circle"
+							onClick="return(confirm('Etes vous sur de vouloir supprimer cet article ?'));"
+							href="{{ path('rigauxt_blog_remove', {'slug': article.slug}) }}"
+						>
+						</a>
+					{% endif %}
+				</h2>
+				<h5>
+					par
+					<a
+						style="padding: 5px"
+						class="btn btn-default"
+						href="{{ path('rigauxt_user_profile', {'username': article.auteur.username}) }}"
+					>
+						<img style="width: 20px; height: auto" src="{{ asset_if(article.auteur.webPath) }}" alt="{{ article.auteur.avatarAlt }}" />
+						{% if article.auteur.nom != null or article.auteur.prenom != null %}
+							{{ article.auteur.prenom }}
+							{% if article.auteur.prenom != null %}
+							{% endif %}
+							{{ article.auteur.nom }}
+						{% else %}
+							{{ article.auteur.username }}
+						{% endif %}
+					</a>
+				</h5>
+				
+				<p style="margin-left:20px; margin-right:20px; text-align: justify">
+					{{ article.contenu|nl2br }}
+				</p>
+				<p>
+					<small class="pull-right">{{ article.date|date("d/m/Y") }}</small>
+				</p>
+			</div>
+		</div>
+	{% endfor %}
+	
+	<hr>
+	
+	<div class="row" style="text-align: center">
+		<ul class="pagination">
+			{% for iPage in max(1,curPage-2)..min(nbPages, curPage+2) %}
+				<li{% if iPage == curPage %} class="active"{% endif %}><a href="{{ path('rigauxt_blog_index', {'page': iPage-1}) }}">{{ iPage }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="alert alert-warning">// Futur : Gestion des articles comme l'entité News mais avec l'ajout des commentaires</div>
+{% endblock %}

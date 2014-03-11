@@ -1,0 +1,30 @@
+{% extends "RigauxtForumBundle::layout.html.twig" %}
+
+{% form_theme form 'RigauxtAlumniBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ parent() }} - Nouvelle Discussion{% endblock %}
+
+{% block rigauxtforum_body %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron" style="width: 75%; margin: auto">
+				<form action="{{ path('rigauxt_forum_topic_add', {'slug': slug}) }}" method="post">
+					<fieldset>
+						<legend>Nouvelle Discussion</legend>
+						<div class="form-group" style="margin-bottom: 0">
+							{% if form_errors(form) %}
+								<div class="alert alert-warning">
+									{{ form_errors(form) }}
+								</div>
+							{% endif %}
+							{{ form_widget(form.topic) }}
+							{{ form_widget(form.message) }}
+							<button type="submit" class="btn btn-success" style="width: 100%">Publier</button>
+							{{ form_end(form) }}
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

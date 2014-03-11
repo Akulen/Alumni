@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<link href="{{ asset('images/favicon.ico') }}" rel="shortcut icon" type="image/x-icon" />
+		<title>{% block title %}Alumni{% endblock %}</title>
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{ asset('style/css/bootstrap.css') }}" type="text/css" />
+			<link rel ="stylesheet" href="{{ asset('style/design.css') }}" type="text/css" />
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+			<div style="width: 83.4%; margin: auto">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{{ path('rigauxt_alumni_index', {}) }}">Alumni</a>
+				</div>
+			
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="menu" style="max-height: 167.5px">
+					<ul class="nav navbar-nav">
+						<li {% if app.request.attributes.get('_route') == 'rigauxt_alumni_index'  %}class="active"{% endif %}><a class="glyphicon glyphicon-home" href="{{ path('rigauxt_alumni_index', {}) }}"></a></li>
+						<li {% if app.request.attributes.get('_route') == 'rigauxt_blog_index'  %}class="active"{% endif %}><a href="{{ path('rigauxt_blog_index', {}) }}">Blog</a></li>
+						<li {% if app.request.attributes.get('_route') == 'rigauxt_forum_index'  %}class="active"{% endif %}><a href="{{ path('rigauxt_forum_index', {}) }}">Forum</a></li>
+						<li {% if app.request.attributes.get('_route') == 'rigauxt_alumni_promotions'  %}class="active"{% endif %}><a href="{{ path('rigauxt_alumni_promotions', {}) }}">Promotions</a></li>
+						<!----
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Defilant <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+								<li class="divider"></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+						<!---->
+					</ul>
+					<!-- Search Field -->
+					<!----
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search" />
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div>
+					</form>
+					<!---->
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">L'Association <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li {% if app.request.attributes.get('_route') == 'rigauxt_alumni_assoc' %}class="active"{% endif %}><a href="{{ path('rigauxt_alumni_assoc') }}">Présentation</a></li>
+								<li {% if app.request.attributes.get('_route') == 'rigauxt_alumni_adhesion' %}class="active"{% endif %}><a href="{{ path('rigauxt_alumni_adhesion') }}">Adhérer</a></li>
+								<li {% if app.request.attributes.get('_route') == 'rigauxt_alumni_contact' %}class="active"{% endif %}><a href="{{ path('rigauxt_alumni_contact') }}">Contact</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="page-header">
+			<div class="col-md-2">
+				<img src="{{ asset('images/logo.png') }}" alt="logo EIPACA" class="img-responsive" />
+			</div>
+			<div class="col-md-10">
+				<div>
+					<h2>Site des anciens élèves de</h2>
+					<h2>L'École Internationale Provence-Alpes-Côte d'Azur</h2>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<!----
+			<div class="row">
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+			<div class="col-md-1">.col-md-1</div>
+		</div>
+		<!---->
+		
+		{% block body %}
+		{% endblock %}
+		
+		<br/>
+		<br/>
+		<br/>
+		
+		<div class="navbar navbar-inverse navbar-fixed-bottom">
+			<div style="width: 83.4%; margin: auto">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#footer">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<p class="navbar-text navbar-left">
+						The sky's the limit <span class="glyphicon glyphicon-copyright-mark"></span> {{ "now"|date("Y") }}
+					</p>
+				</div>
+				<div class="collapse navbar-collapse" id="footer">
+					<form class="navbar-form navbar-left" action="{{ path('rigauxt_alumni_change_locale') }}" method="post">
+						<div class="form-group" style="margin-bottom: 0">
+							<select class="form-control" id="langue" name="langue">
+								<option value="en">English</option>
+								<option value="fr">Francais</option>
+							</select>
+							<button type="submit" class="btn btn-primary">Change</button>
+						</div>
+					</form>
+					{% if app.user == null %}
+						<form action="{{ path('fos_user_security_check') }}" method="post" class="navbar-form navbar-right">
+							<div class="form-group" style="margin-bottom: 0">
+								<input type="text" id="username" name="_username" class="form-control" placeholder="Pseudo" />
+								<input type="password" id="password" name="_password" class="form-control" placeholder="Mot de Passe" />
+								<button type="submit" class="btn btn-success">Log in</button>
+								<a class="btn btn-primary" href="{{ path('fos_user_registration_register') }}">Register</a>
+							</div>
+						</form>
+					{% else %}
+					<div class="navbar-right" style="heigth: 51px">
+						<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ gravatar(app.user.email, 20) }}" alt="avatar https://en.gravatar.com/" /> {% if app.user.nom != null or app.user.prenom != null %}{{ app.user.prenom }}{% if app.user.prenom != null %} {% endif %}{{ app.user.nom }}{% if app.user.nom != null %} {% endif %}({{ app.user.username }}){% else %}{{app.user.username}}{% endif %} <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li {% if app.request.attributes.get('_route') == 'fos_user_profile_show' %}class="active"{% endif %}><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+									<li class="divider"></li>
+									<li {% if app.request.attributes.get('_route') == 'rigauxt_user_inbox' %}class="active"{% endif %}><a href="{{ path('rigauxt_user_inbox') }}">Messagerie <span class="badge pull-right">42</span></a></li>
+									<li class="divider"></li>
+									<li><a href="{{ path('fos_user_security_logout') }}">Deconnection</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		
+		<div class="alert alert-danger" style="margin-bottom: 100px;"><span class="glyphicon glyphicon-warning-sign"></span> En Travaux <span class="glyphicon glyphicon-warning-sign"></span></div>
+		
+		{% block javascripts %}
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+			<script type="text/javascript" src="{{ asset('style/js/bootstrap.js') }}"></script>
+		{% endblock %}
+	</body>
+</html>

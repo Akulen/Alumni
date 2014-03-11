@@ -1,0 +1,21 @@
+{% form_theme form 'RigauxtAlumniBundle:Form:fields.html.twig' %}
+
+<hr>
+
+<div class="jumbotron" style="width: 75%; margin: auto">
+	<form action="{{ path('rigauxt_forum_post_add', {'slug': slug}) }}" method="post">
+		<fieldset>
+			<legend><span class="glyphicon glyphicon-comment"></span> Nouveau Post</legend>
+			<div class="form-group" style="margin-bottom: 0">
+				{% if form_errors(form) %}
+					<div class="alert alert-warning">
+						{{ form_errors(form) }}
+					</div>
+				{% endif %}
+				{{ form_widget(form.message) }}
+				<button type="submit" class="btn btn-success" style="width: 100%">Soumettre</button>
+				{{ form_rest(form) }}
+			</div>
+		</fieldset>
+	</form>
+</div>

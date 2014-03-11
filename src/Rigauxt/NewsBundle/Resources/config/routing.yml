@@ -1,0 +1,11 @@
+rigauxt_news_add:
+    pattern:  /add
+    defaults: { _controller: RigauxtNewsBundle:News:add }
+
+rigauxt_news_edit:
+    pattern:  /edit/{slug}
+    defaults: { _controller: RigauxtNewsBundle:News:edit }
+
+rigauxt_news_remove:
+    pattern:  /remove/{slug}
+    defaults: { _controller: RigauxtNewsBundle:News:remove }

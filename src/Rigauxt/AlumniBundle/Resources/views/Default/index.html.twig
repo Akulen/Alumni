@@ -1,0 +1,82 @@
+{% extends "RigauxtAlumniBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block rigauxtalumni_body %}
+	<div class="row" style="text-align: center">
+		{% if is_granted("ROLE_AUTEUR") %}
+			<p>
+				<a class="btn btn-default" href="{{ path('rigauxt_news_add') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter une News</a>
+			</p>
+		{% endif %}
+		<ul class="pagination">
+			{% for iPage in max(1,curPage-2)..min(nbPages, curPage+2) %}
+				<li{% if iPage == curPage %} class="active"{% endif %}><a href="{{ path('rigauxt_alumni_index', {'page': iPage-1}) }}">{{ iPage }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	<hr>
+	
+	{% for id, news in listeNews %}
+		{% if id != 0 %}
+		<hr>
+		{% endif %}
+		
+		<div class="row">
+			<div class="col-md-12">
+				<h2>
+					{{ news.titre }}
+					{% if app.user == news.auteur or is_granted("ROLE_ADMIN") %}
+						<a
+							class="btn glyphicon glyphicon-edit"
+							href="{{ path('rigauxt_news_edit', {'slug': news.slug}) }}"
+						>
+						</a>
+						<a
+							class="pull-right btn glyphicon glyphicon-remove-circle"
+							onClick="return(confirm('Etes vous sur de vouloir supprimer cette news ?'));"
+							href="{{ path('rigauxt_news_remove', {'slug': news.slug}) }}"
+						>
+						</a>
+					{% endif %}
+				</h2>
+				<h5>
+					par
+					<a
+						style="padding: 5px"
+						class="btn btn-default"
+						href="{{ path('rigauxt_user_profile', {'username': news.auteur.username}) }}"
+					>
+						<img style="width: 20px; height: auto" src="{{ asset_if(news.auteur.webPath) }}" alt="{{ news.auteur.avatarAlt }}" />
+						{% if news.auteur.nom != null or news.auteur.prenom != null %}
+							{{ news.auteur.prenom }}
+							{% if news.auteur.prenom != null %}
+							{% endif %}
+							{{ news.auteur.nom }}
+						{% else %}
+							{{news.auteur.username}}
+						{% endif %}
+					</a>
+				</h5>
+				
+				<p style="margin-left:20px; margin-right:20px; text-align: justify">
+					{{ news.contenu|nl2br }}
+				</p>
+				<p>
+					<small class="pull-right">{{ news.date|date("d/m/Y") }}</small>
+				</p>
+			</div>
+		</div>
+	{% endfor %}
+	
+	<hr>
+	
+	<div class="row" style="text-align: center">
+		<ul class="pagination">
+			{% for iPage in max(1,curPage-2)..min(nbPages, curPage+2) %}
+				<li{% if iPage == curPage %} class="active"{% endif %}><a href="{{ path('rigauxt_alumni_index', {'page': iPage-1}) }}">{{ iPage }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

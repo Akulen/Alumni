@@ -1,0 +1,7 @@
+rigauxt_user_profile:
+    pattern: /show/{username}
+    defaults: { _controller: RigauxtUserBundle:Profil:show }
+
+rigauxt_user_inbox:
+    pattern: /messagerie
+    defaults: { _controller: RigauxtUserBundle:Messagerie:index }

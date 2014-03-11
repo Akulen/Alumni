@@ -1,0 +1,28 @@
+{% extends "RigauxtAlumniBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Blog{% endblock %}
+
+{% block rigauxtalumni_body %}
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Article 1</h2>
+			
+			<p>
+				Youpi !
+			</p>
+		</div>
+	</div>
+	
+	<hr>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Article 2</h2>
+			
+			<p>
+				ou pas !
+			</p>
+		</div>
+	</div>
+	<div class="alert alert-warning">// Futur : Gestion des articles comme l'entité News mais avec l'ajout des commentaires</div>
+{% endblock %}

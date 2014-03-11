@@ -1,0 +1,25 @@
+rigauxt_alumni_index:
+    pattern:  /{page}
+    defaults: { _controller: RigauxtAlumniBundle:Default:index, page: 0 }
+    requirements:
+        page: -?\d*
+    
+rigauxt_alumni_assoc:
+    pattern:  /Association
+    defaults: { _controller: RigauxtAlumniBundle:Default:assoc }
+    
+rigauxt_alumni_adhesion:
+    pattern:  /Adherer
+    defaults: { _controller: RigauxtAlumniBundle:Default:adhesion }
+    
+rigauxt_alumni_contact:
+    pattern:  /Contact
+    defaults: { _controller: RigauxtAlumniBundle:Default:contact }
+    
+rigauxt_alumni_promotions:
+    pattern:  /Promotions
+    defaults: { _controller: RigauxtAlumniBundle:Promotions:index }
+    
+rigauxt_alumni_change_locale:
+    pattern:  /changeLanguage
+    defaults: { _controller: RigauxtAlumniBundle:Default:changeLocale }

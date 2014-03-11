@@ -1,0 +1,89 @@
+body
+{
+    width: 83.4%;
+    background-color: #CCC;
+    margin: auto;
+}
+
+.page-header img
+{
+	height: 129px;
+	margin: auto;
+}
+
+.row .col-md-12 h2
+{
+	margin-top: 0;
+	margin-left: 50px;
+}
+
+p small:before
+{
+	content: '\2014 \00A0';
+}
+
+.jumbotron
+{
+	border: 1px solid #777;
+	border-radius: 6px;
+	padding: 48px;
+	background-color: #222;
+}
+
+.alert-danger
+{
+	color: #ffffff;
+	background-color: #ee5f5b;
+	border-color: #ed4d63;
+	text-align: center;
+}
+
+.titlePseudo
+{
+	text-align: center;
+	font-size: 34px;
+}
+
+.titleNoms
+{
+	text-align: center;
+	font-size: 42px;
+}
+
+legend
+{
+	color: #fff;
+}
+
+.removeLink
+{
+	color: #111;
+}
+
+.removeLink:hover, .removeLink:active
+{
+	color: #555;
+	text-decoration: none;
+}
+
+.jumbotron
+{
+	color: #ccc;
+}
+
+.jumbotron td
+{
+	background-color: #AAA;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th
+{
+	background-color: #ddd;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th
+{
+	background-color: #EBEBEB;
+}

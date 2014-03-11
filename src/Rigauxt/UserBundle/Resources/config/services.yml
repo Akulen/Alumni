@@ -1,0 +1,7 @@
+parameters:
+#    rigauxt_user.example.class: Rigauxt\UserBundle\Example
+
+services:
+#    rigauxt_user.example:
+#        class: %rigauxt_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
