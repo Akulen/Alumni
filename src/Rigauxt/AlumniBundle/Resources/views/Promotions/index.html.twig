@@ -16,7 +16,10 @@
 						<div class="panel-body">
 							{% for id, eleve in promo.users %}
 								<a class="btn btn-default" href="{{ path('rigauxt_user_profile', {'username': eleve}) }}">
-									<img src="{{ gravatar(eleve.email, 32) }}" alt="avatar https://en.gravatar.com/" />
+									<img
+										style="width: 32px; height: auto"
+										src="{{ asset_if(eleve.webPath) }}" alt="{{ eleve.avatarAlt }}"
+									/>
 									{% if eleve.nom != null or eleve.prenom != null %}
 										{{ eleve.prenom }}
 										{% if eleve.prenom != null %}
