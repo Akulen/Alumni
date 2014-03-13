@@ -17,6 +17,7 @@ class RigauxtExtension extends \Twig_Extension
 	{
 		return array(
 			'asset_if'	=> new \Twig_Function_Method($this, 'asset_if'),
+			'format_avatar'	=> new \Twig_Function_Method($this, 'format_avatar', array('is_safe' => array('html'))),
 		);
 	}
 
@@ -34,6 +35,15 @@ class RigauxtExtension extends \Twig_Extension
         // Return the real image
         return $this->container->get('templating.helper.assets')->getUrl($path);
     }
+	
+	public function format_avatar($user, $size)
+	{
+		$retour = "<img style='width: ".$size."px; height: auto";
+		if($user->getMembre())
+			$retour .= "; border: 1px solid #000";
+		$retour .= "' src='".$this->asset_if($user->getWebPath())."' alt='".$user->getAvatarAlt()."' />";
+		return $retour;
+	}
 
 	public function getName()
 	{

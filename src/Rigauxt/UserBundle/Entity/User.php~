@@ -59,6 +59,11 @@ class User extends BaseUser
      * @ORM\Column(name="avatarAlt", type="string", length=255, nullable=true)
      */
     protected $avatarAlt;
+    
+    /**
+     * @ORM\Column(name="membre", type="boolean")
+     */
+    protected $membre;
 	
 	public function __construct()
 	{
@@ -177,7 +182,7 @@ class User extends BaseUser
 		
 		if (null !== $this->avatarExtension)
 		{
-			$this->tempFilename = $this->url;
+			$this->tempFilename = $this->avatarExtension;
 			
 			$this->avatarExtension = null;
 			$this->avatarAlt = null;
@@ -198,7 +203,7 @@ class User extends BaseUser
 		if (null === $this->image)
 			return;
 		
-		$this->avatarExtension = "coucou";
+		$this->avatarExtension =$this->image->guessExtension();
 		
 		$this->avatarAlt = $this->image->getClientOriginalName();
 	}
@@ -274,4 +279,32 @@ class User extends BaseUser
     {
         return $this->avatarAlt;
     }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    
+    public function getWebPath()
+	{
+		return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAvatarExtension();
+	}
 }

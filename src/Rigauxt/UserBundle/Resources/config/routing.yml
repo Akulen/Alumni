@@ -9,3 +9,7 @@ rigauxt_user_avatar_remove:
 rigauxt_user_inbox:
     pattern: /messagerie
     defaults: { _controller: RigauxtUserBundle:Messagerie:index }
+
+rigauxt_user_membre:
+    pattern: /{username}/{membre}
+    defaults: { _controller: RigauxtUserBundle:Profil:setMembre }

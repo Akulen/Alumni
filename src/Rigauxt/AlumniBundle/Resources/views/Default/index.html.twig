@@ -48,7 +48,7 @@
 						class="btn btn-default"
 						href="{{ path('rigauxt_user_profile', {'username': news.auteur.username}) }}"
 					>
-						<img style="width: 20px; height: auto" src="{{ asset_if(news.auteur.webPath) }}" alt="{{ news.auteur.avatarAlt }}" />
+						{{ format_avatar(news.auteur, 20) }}
 						{% if news.auteur.nom != null or news.auteur.prenom != null %}
 							{{ news.auteur.prenom }}
 							{% if news.auteur.prenom != null %}

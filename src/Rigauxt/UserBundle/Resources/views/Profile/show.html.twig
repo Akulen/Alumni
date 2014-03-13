@@ -6,12 +6,27 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="pull-right thumbnail" style="width: 170px">
-				<img style="width: 160px; height: auto" src="{{ asset_if(user.webPath) }}" alt="{{ user.avatarAlt }}" />
+				{{ format_avatar(user, 160) }}
 			</div>
 			{% if user.nom != null or user.prenom != null %}
 				<h1 class="titleNoms">{{ user.prenom }}{% if user.prenom != null %} {% endif %}{{ user.nom }}</h1>
 			{% endif %}
-			<h3 class="titlePseudo">{{ user.username }} {% if app.request.attributes.get('_route') == 'fos_user_profile_show' %}<a class="btn glyphicon glyphicon-edit" href="{{ path('fos_user_profile_edit') }}"></a>{% endif %}</h3>
+			<h3 class="titlePseudo">
+				{% if is_granted("ROLE_ADMIN") %}
+					{% if user.membre %}
+						<a style="color: #A33" class="btn glyphicon glyphicon-remove" href="{{ path('rigauxt_user_membre', {'username': user.username, 'membre': 0}) }}">
+						</a>
+					{% else %}
+						<a style="color: #3A3" class="btn glyphicon glyphicon-ok" href="{{ path('rigauxt_user_membre', {'username': user.username, 'membre': 1}) }}">
+						</a>
+					{% endif %}
+				{% endif %}
+				{{ user.username }}
+				{% if app.request.attributes.get('_route') == 'fos_user_profile_show' %}
+					<a class="btn glyphicon glyphicon-edit" href="{{ path('fos_user_profile_edit') }}">
+					</a>
+				{% endif %}
+			</h3>
 			{% if user.promotion.annee != 0 %}
 			<a class="btn btn-success" href="{{ path('rigauxt_alumni_promotions') }}">Promotion {{ user.promotion.annee }}</a><br />
 			{% endif %}

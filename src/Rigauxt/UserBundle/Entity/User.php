@@ -59,6 +59,11 @@ class User extends BaseUser
      * @ORM\Column(name="avatarAlt", type="string", length=255, nullable=true)
      */
     protected $avatarAlt;
+    
+    /**
+     * @ORM\Column(name="membre", type="boolean")
+     */
+    protected $membre;
 	
 	public function __construct()
 	{
@@ -302,4 +307,27 @@ class User extends BaseUser
 	{
 		return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAvatarExtension();
 	}
+
+    /**
+     * Set membre
+     *
+     * @param boolean $membre
+     * @return User
+     */
+    public function setMembre($membre)
+    {
+        $this->membre = $membre;
+
+        return $this;
+    }
+
+    /**
+     * Get membre
+     *
+     * @return boolean 
+     */
+    public function getMembre()
+    {
+        return $this->membre;
+    }
 }

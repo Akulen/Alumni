@@ -98,10 +98,7 @@
 										</td>
 										<td>
 											<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': postIt.author.username}) }}">
-												<img
-													style="width: 32px; height: auto"
-													src="{{ asset_if(postIt.author.webPath) }}" alt="{{ postIt.author.avatarAlt }}"
-												/>
+												{{ format_avatar(postIt.author, 32) }}
 												{% if postIt.author.nom != null or postIt.author.prenom != null %}
 													{{ postIt.author.prenom }}
 													{% if postIt.author.prenom != null %}
@@ -149,10 +146,7 @@
 										</td>
 										<td>
 											<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': topic.author.username}) }}">
-												<img
-													style="width: 32px; height: auto"
-													src="{{ asset_if(topic.author.webPath) }}" alt="{{ topic.author.avatarAlt }}"
-												/>
+												{{ format_avatar(topic.author, 32) }}
 												{% if topic.author.nom != null or topic.author.prenom != null %}
 													{{ topic.author.prenom }}
 													{% if topic.author.prenom != null %}

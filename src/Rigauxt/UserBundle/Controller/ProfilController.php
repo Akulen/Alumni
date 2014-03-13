@@ -33,4 +33,25 @@ class ProfilController extends Controller
 		$user->removeUpload();
 		return $this->redirect($this->generateUrl("fos_user_profile_show"));
 	}
+	
+	public function setMembreAction($username, $membre)
+	{
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+		{
+			return $this->redirect($this->generateUrl("rigauxt_user_profile", array(
+				"username"	=> $username,
+			)));
+		}
+		$em = $this->getDoctrine()->getManager();
+		$userRepo = $em->getRepository("RigauxtUserBundle:User");
+		$user = $userRepo->findOneBy(array("username" => $username));
+		if($user == null)
+			return $this->redirect($this->generateUrl("fos_user_profile_show"));
+		$user->setMembre($membre);
+		$em->flush();
+		return $this->redirect($this->generateUrl("rigauxt_user_profile", array(
+			"username"	=> $username,
+		)));
+	}
 }

@@ -32,10 +32,7 @@
 						<tr>
 							<td>
 								<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': post.author.username}) }}">
-									<img
-										style="width: 32px; height: auto"
-										src="{{ asset_if(post.author.webPath) }}" alt="{{ post.author.avatarAlt }}"
-									/>
+									{{ format_avatar(post.author, 32) }}
 									{% if post.author.nom != null or post.author.prenom != null %}
 										{{ post.author.prenom }}
 										{% if post.author.prenom != null %}
