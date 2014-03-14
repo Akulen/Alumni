@@ -1,0 +1,34 @@
+{% extends "RigauxtForumBundle::layout.html.twig" %}
+
+{% form_theme form 'RigauxtAlumniBundle:Form:fields.html.twig' %}
+
+{% block title %}{{ parent() }} - Nouvelle Discussion{% endblock %}
+
+{% block rigauxtforum_body %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron" style="width: 75%; margin: auto">
+				<form action="{{ path('rigauxt_forum_category_add', {'slug': slug}) }}" method="post">
+					<fieldset>
+						<legend>Nouvelle Categorie</legend>
+						<div class="form-group" style="margin-bottom: 0">
+							{% if form_errors(form) %}
+								<div class="alert alert-warning">
+									{{ form_errors(form) }}
+								</div>
+							{% endif %}
+							{{ form_widget(form.nom, {'attr': {'placeHolder': 'Nom'}}) }}
+							{{ form_widget(form.description, {'attr': {'placeHolder': 'Description'}}) }}
+							<label for="rigauxt_forumbundle_categorie_pere" style="margin-left: 20px; color: #ccc" class="control-label">Categorie</label>
+							{{ form_widget(form.pere) }}
+							<label for="rigauxt_forumbundle_categorie_pere" style="margin-left: 20px; color: #ccc" class="control-label">Theme</label>
+							{{ form_widget(form.theme) }}
+							<button type="submit" class="btn btn-success" style="width: 100%">Ajouter</button>
+							{{ form_end(form) }}
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

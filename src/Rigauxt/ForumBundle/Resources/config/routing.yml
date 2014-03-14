@@ -2,13 +2,29 @@ rigauxt_forum_index:
     pattern:  /{slugPere}
     defaults: { _controller: RigauxtForumBundle:Default:index, slugPere: null }
 
+rigauxt_forum_category_add:
+    pattern:  /{slug}/category/add
+    defaults: { _controller: RigauxtForumBundle:Category:add, slug: null }
+
+rigauxt_forum_category_add:
+    pattern:  /{slug}/category/add
+    defaults: { _controller: RigauxtForumBundle:Category:add, slug: null }
+
+rigauxt_forum_category_remove:
+    pattern:  /category/remove/{slug}
+    defaults: { _controller: RigauxtForumBundle:Category:remove }
+
 rigauxt_forum_topic_view:
     pattern:  /topic/{slug}
     defaults: { _controller: RigauxtForumBundle:Topic:view }
 
 rigauxt_forum_topic_add:
-    pattern:  /{slug}/add/topic
+    pattern:  /add/topic/{slug}
     defaults: { _controller: RigauxtForumBundle:Topic:newTopic, slug: null }
+
+rigauxt_forum_topic_remove:
+    pattern:  /topic/remove/{slug}
+    defaults: { _controller: RigauxtForumBundle:Topic:remove }
 
 rigauxt_forum_post_add:
     pattern:  /topic/{slug}/post/new

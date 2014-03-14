@@ -54,7 +54,7 @@ class Topic
     private $slug;
     
     /**
-     * @ORM\OneToMany(targetEntity="Rigauxt\ForumBundle\Entity\Post", mappedBy="topic")
+     * @ORM\OneToMany(targetEntity="Rigauxt\ForumBundle\Entity\Post", mappedBy="topic", cascade="remove")
      */
     private $posts;
 

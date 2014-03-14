@@ -16,25 +16,26 @@ class DefaultController extends Controller
     	$topics = null;
     	$postIts = null;
     	$titrePere = null;
-    	if($slugPere != null)
+    	if($slugPere == null)
     	{
-    		$pere = $categorieRepo->findOneBy(array("slug" => $slugPere));
-    		if($pere == null)
-    			return $this->redirect($this->generateUrl("rigauxt_forum_index"));
-    		else
-    		{
-    			$topics = $pere->getTopics();
-    			foreach($topics as $topic)
-    			{
-    				if($topic->getType()->getName() != "Classique")
-    				{
-    					$postIts[] = $topic;
-    					$topics->removeElement($topic);
-    				}
-    			}
-    		}
-    		$titrePere = $pere->getNom();
+    		$slugPere = "#root";
     	}
+		$pere = $categorieRepo->findOneBy(array("slug" => $slugPere));
+		if($pere == null)
+			return $this->redirect($this->generateUrl("rigauxt_forum_index"));
+		else
+		{
+			$topics = $pere->getTopics();
+			foreach($topics as $topic)
+			{
+				if($topic->getType()->getName() != "Classique")
+				{
+					$postIts[] = $topic;
+					$topics->removeElement($topic);
+				}
+			}
+		}
+		$titrePere = $pere->getNom();
     	$categories = $categorieRepo->findBy(array("pere" => $pere), array("theme" => "asc"));
     	$ariane = array();
     	while($pere != null)
@@ -42,7 +43,6 @@ class DefaultController extends Controller
     		$ariane[$pere->getNom()] = $this->generateUrl("rigauxt_forum_index", array("slugPere" => $pere->getSlug()));
     		$pere = $pere->getPere();
     	}
-    	$ariane["Forum"] = $this->generateUrl("rigauxt_forum_index");
     	$ariane = array_reverse($ariane);
     	$themes = array();
     	$curGroup = array();
@@ -52,9 +52,9 @@ class DefaultController extends Controller
     	{
     		if($id != 0 && $categorie->getTheme() != $prevCategorie->getTheme())
     		{
-    			$themes[$prevCategorie->getTheme()] = $curGroup;
+    			$themes[$prevCategorie->getTheme()->getName()] = $curGroup;
     			$curGroup = array();
-    			$themesPost[$prevCategorie->getTheme()] = $curGroupPost;
+    			$themesPost[$prevCategorie->getTheme()->getName()] = $curGroupPost;
     			$curGroupPost = array();
     		}
     		$curGroup[] = $categorie;
@@ -63,8 +63,8 @@ class DefaultController extends Controller
     	}
     	if(isset($prevCategorie))
     	{
-	    	$themes[$prevCategorie->getTheme()] = $curGroup;
-	    	$themesPost[$prevCategorie->getTheme()] = $curGroupPost;
+	    	$themes[$prevCategorie->getTheme()->getName()] = $curGroup;
+	    	$themesPost[$prevCategorie->getTheme()->getName()] = $curGroupPost;
 	    }
 	    $topicLastPost = array();
 	    $postItLastPost = array();

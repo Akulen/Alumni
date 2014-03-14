@@ -115,4 +115,28 @@ class TopicController extends Controller
         	"slug" => $slug,
         ));
     }
+    
+    public function removeAction($slug)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$topicRepo = $em->getRepository("RigauxtForumBundle:Topic");
+    	$topic = $topicRepo->findOneBy(array("slug" => $slug));
+    	
+    	if($topic == null)
+    	{
+			return $this->redirect($this->generateUrl("rigauxt_forum_index"));
+    	}
+    	$categorySlug = $topic->getCategorie()->getSlug();
+    	
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		if(!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+		{
+			return $this->redirect($this->generateUrl("rigauxt_forum_index", array("slugPere" => $categorySlug)));
+		}
+    	
+    	$em->remove($topic);
+    	$em->flush();
+    	
+        return $this->redirect($this->generateUrl("rigauxt_forum_index", array("slugPere" => $categorySlug)));
+    }
 }

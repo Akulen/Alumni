@@ -53,12 +53,12 @@ class Categorie
     private $slug;
     
     /**
-     * @ORM\OneToMany(targetEntity="Rigauxt\ForumBundle\Entity\Topic", mappedBy="categorie")
+     * @ORM\OneToMany(targetEntity="Rigauxt\ForumBundle\Entity\Topic", mappedBy="categorie", cascade="remove")
      */
     private $topics;
     
     /**
-     * @ORM\Column(name="theme", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Rigauxt\ForumBundle\Entity\Theme")
      */
     private $theme;
 

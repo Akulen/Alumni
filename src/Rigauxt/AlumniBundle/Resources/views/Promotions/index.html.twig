@@ -18,14 +18,7 @@
 								{% if eleve.membre %}
 									<a class="btn btn-default" href="{{ path('rigauxt_user_profile', {'username': eleve}) }}">
 										{{ format_avatar(eleve, 32) }}
-										{% if eleve.nom != null or eleve.prenom != null %}
-											{{ eleve.prenom }}
-											{% if eleve.prenom != null %}
-											{% endif %}
-											{{ eleve.nom }}
-										{% else %}
-											{{eleve.username}}
-										{% endif %}
+										{{ format_name(eleve) }}
 									</a>
 								{% endif %}
 							{% endfor %}

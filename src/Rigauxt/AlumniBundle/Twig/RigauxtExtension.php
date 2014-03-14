@@ -18,6 +18,7 @@ class RigauxtExtension extends \Twig_Extension
 		return array(
 			'asset_if'	=> new \Twig_Function_Method($this, 'asset_if'),
 			'format_avatar'	=> new \Twig_Function_Method($this, 'format_avatar', array('is_safe' => array('html'))),
+			'format_name'	=> new \Twig_Function_Method($this, 'format_name'),
 		);
 	}
 
@@ -43,6 +44,21 @@ class RigauxtExtension extends \Twig_Extension
 			$retour .= "; border: 1px solid #000";
 		$retour .= "' src='".$this->asset_if($user->getWebPath())."' alt='".$user->getAvatarAlt()."' />";
 		return $retour;
+	}
+	
+	public function format_name($user, $full = true)
+	{
+		if($user->getNom() != null or $user->getPrenom() != null)
+		{
+			$name = $user->getPrenom();
+			if($user->getPrenom() != null)	$name .= " ";
+			$name .= $user->getNom();
+			if($user->getNom() != null)	$name .= " ";
+			if($full)	$name .= "(".$user->getUsername().")";
+		}
+		else
+			$name = $user->getUsername();
+		return $name;
 	}
 
 	public function getName()

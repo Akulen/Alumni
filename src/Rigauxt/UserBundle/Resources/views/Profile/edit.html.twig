@@ -7,9 +7,11 @@
 {% block body %}
 	<div class="row">
 		<div class="col-md-12">
-			<img class="pull-right img-thumbnail" style="width: 160px; height: auto" src="{{ asset_if(app.user.webPath) }}" alt="{{ app.user.avatarAlt }}" />
+			<div class="pull-right thumbnail" style="width: 170px">
+				{{ format_avatar(app.user, 160) }}
+			</div>
 			<div class="jumbotron" style="width: 400px">
-				<h3 style="margin-top: 0; margin-bottom: 30px; color: #FFF" class="titlePseudo">{{ app.user.username }}</h3>
+				<h3 style="margin-top: 0; margin-bottom: 30px; color: #FFF" class="titlePseudo">{{ format_name(app.user) }}</h3>
 				<form method="post" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }}>
 					{{ form_widget(form._token) }}
 					{{ form_errors(form) }}

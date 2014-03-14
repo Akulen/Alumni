@@ -6,10 +6,29 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well" style="padding: 10px">
-				<span class="glyphicon glyphicon-tower"></span>
-				{% for nom, lien in ariane %}
-					 {% if loop.first == false %}/{% endif %} {% if loop.last == false %}<a href="{{ lien }}">{% endif %}{{ nom }}{% if loop.last == false %}</a>{% endif %}
-				{% endfor %}
+				<div class="pull-right">
+					{% if is_granted("ROLE_ADMIN") %}
+						<a
+							class="btn btn-primary"
+							href="{% if slug != null  %}
+									{{ path('rigauxt_forum_category_add', {'slug': slug}) }}
+								  {% else %}
+								  	{{ path('rigauxt_forum_category_add', {'slug': ' '}) }}
+								  {% endif %}"
+						>
+							<span class="glyphicon glyphicon-plus-sign"></span>
+							Nouvelle Categorie
+						</a>
+					{% endif %}
+				</div>
+				<div style="margin: auto; margin-top: 8px">
+					<span class="glyphicon glyphicon-tower"></span>
+					{% for nom, lien in ariane %}
+						 {% if loop.first == false %}/{% endif %} {% if loop.last == false %}<a href="{{ lien }}">{% endif %}{{ nom }}{% if loop.last == false %}</a>{% endif %}
+					{% endfor %}
+				</div>
+				<div style="clear: both">
+				</div>
 			</div>
 			
 			<h2>Forum</h2>
@@ -27,6 +46,10 @@
 							</th>
 							<th style="width: 200px">
 							</th>
+							{% if is_granted("ROLE_ADMIN") %}
+								<th style="width: 14px">
+								</th>
+							{% endif %}
 						</tr>
 					</thead>
 					<tbody>
@@ -50,7 +73,7 @@
 										</a>
 										par
 										<a class="removeLink" href="#">
-											{{ themesPost[theme][id].author.username }}
+											{{ format_name(themesPost[theme][id].author, false) }}
 										</a>
 										dans
 										<a class="removeLink" href="#">
@@ -58,16 +81,25 @@
 										</a>
 									{% endif %}
 								</td>
+								{% if is_granted("ROLE_ADMIN") %}
+									<td style="width: 14px">
+										<a
+											href="{{ path('rigauxt_forum_category_remove', {'slug': categorie.slug}) }}"
+											onClick="return(confirm('Etes vous sur de vouloir supprimer cette catégorie ? Cela supprimera aussi tout ce qui lui est lié !'));"
+											style="color: #A33" class="glyphicon glyphicon-remove"
+										></a>
+										<a href="#" class="glyphicon glyphicon-edit"></a>
+									</td>
+								{% endif %}
 							</tr>
 						{% endfor %}
 					</tbody>
 				{% endfor%}
 			</table>
 			
-			{% if titre != null %}
+			{% if titre != "Forum" %}
 				<div class="jumbotron">
 					<h2 style="color: #FFF; margin: 0; margin-top: -10px; text-align: center">Discussions</h2>
-			
 					{% if slug != null and app.user != null %}
 						<a class="btn btn-primary" href="{{ path('rigauxt_forum_topic_add', {'slug': slug}) }}">
 							<span class="glyphicon glyphicon-plus-sign"></span>
@@ -88,6 +120,10 @@
 									</th>
 									<th style="width: 200px">
 									</th>
+									{% if is_granted("ROLE_ADMIN") %}
+										<th style="width: 14px">
+										</th>
+									{% endif %}
 								</tr>
 							</thead>
 							<tbody>
@@ -99,14 +135,7 @@
 										<td>
 											<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': postIt.author.username}) }}">
 												{{ format_avatar(postIt.author, 32) }}
-												{% if postIt.author.nom != null or postIt.author.prenom != null %}
-													{{ postIt.author.prenom }}
-													{% if postIt.author.prenom != null %}
-													{% endif %}
-													{{ postIt.author.nom }}
-												{% else %}
-													{{ postIt.author.username }}
-												{% endif %}
+												{{ format_name(postIt.author, false) }}
 											</a>
 										</td>
 										<td>
@@ -115,14 +144,28 @@
 											</a>
 										</td>
 										<td style="color: #333">
-											<a class="removeLink" href="#">
-												Il y a {{ postItLastPost[id].timeSince }}
-											</a>
-											par
-											<a class="removeLink" href="#">
-												{{ postItLastPost[id].author.username }}
-											</a>
+											{% if postItLastPost[id] != null %}
+												<a class="removeLink" href="#">
+													Il y a {{ postItLastPost[id].timeSince }}
+												</a>
+												par
+												<a class="removeLink" href="#">
+													{{ format_name(postItLastPost[id].author, false) }}
+												</a>
+											{% else %}
+												-
+											{% endif %}
 										</td>
+										{% if is_granted("ROLE_ADMIN") %}
+											<td style="width: 14px">
+												<a
+													href="{{ path('rigauxt_forum_topic_remove', {'slug': postIt.slug}) }}"
+													onClick="return(confirm('Etes vous sur de vouloir supprimer ce post-it ? Cela supprimera aussi tout ses messages !'));"
+													style="color: #A33" class="glyphicon glyphicon-remove"
+												></a>
+												<a href="#" class="glyphicon glyphicon-edit"></a>
+											</td>
+										{% endif %}
 									</tr>
 								{% endfor %}
 							</tbody>
@@ -136,6 +179,10 @@
 									</th>
 									<th>
 									</th>
+									{% if is_granted("ROLE_ADMIN") %}
+										<th>
+										</th>
+									{% endif %}
 								</tr>
 							</thead>
 							<tbody>
@@ -147,14 +194,7 @@
 										<td>
 											<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': topic.author.username}) }}">
 												{{ format_avatar(topic.author, 32) }}
-												{% if topic.author.nom != null or topic.author.prenom != null %}
-													{{ topic.author.prenom }}
-													{% if topic.author.prenom != null %}
-													{% endif %}
-													{{ topic.author.nom }}
-												{% else %}
-													{{ topic.author.username }}
-												{% endif %}
+												{{ format_name(topic.author, false) }}
 											</a>
 										</td>
 										<td>
@@ -168,9 +208,19 @@
 											</a>
 											par
 											<a class="removeLink" href="#">
-												{{ topicLastPost[id].author.username }}
+												{{ format_name(topicLastPost[id].author, false) }}
 											</a>
 										</td>
+										{% if is_granted("ROLE_ADMIN") %}
+											<td style="width: 14px">
+												<a
+													href="{{ path('rigauxt_forum_topic_remove', {'slug': topic.slug}) }}"
+													onClick="return(confirm('Etes vous sur de vouloir supprimer ce topic ? Cela supprimera aussi tout ses messages !'));"
+													style="color: #A33" class="glyphicon glyphicon-remove"
+												></a>
+												<a href="#" class="glyphicon glyphicon-edit"></a>
+											</td>
+										{% endif %}
 									</tr>
 								{% endfor %}
 							</tbody>

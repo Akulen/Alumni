@@ -16,40 +16,26 @@
 			
 			<hr>
 			
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th style="width: 150px">
-							Author
-						</th>
-						<th>
-							{{ topic.title }}
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for id, post in topic.posts %}
-						<tr>
-							<td>
-								<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': post.author.username}) }}">
-									{{ format_avatar(post.author, 32) }}
-									{% if post.author.nom != null or post.author.prenom != null %}
-										{{ post.author.prenom }}
-										{% if post.author.prenom != null %}
-										{% endif %}
-										{{ post.author.nom }}
-									{% else %}
-										{{ post.author.username }}
-									{% endif %}
-								</a>
-							</td>
-							<td style="text-align: justify">
-								{{ post.message|nl2br }}
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+			{% for id, post in topic.posts %}
+				<div id="p{{ post.id }}">
+					<div class="row post-head" style="background-color: #ddd; border-top: 1px solid #aaa; margin: 0; padding: 3px">	
+						<div class="col-md-2" style="text-align: center">
+							{{ format_name(post.author) }}
+						</div>
+						<div class="col-md-10">
+							<a href="#p{{ post.id }}">#</a> il y a {{ post.timeSince }}
+						</div>
+					</div>
+					<div class="row post-head" style="background-color: #f9f9f9; margin: 0; padding: 0.625em 3px">
+						<div class="col-md-2" style="text-align: center">
+							{{ format_avatar(post.author, 80) }}
+						</div>
+						<div class="col-md-10">
+							{{ post.message|nl2br }}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
 			
 			{% if app.user != null %}
 				{{ render(controller("RigauxtForumBundle:Topic:newPost", {'slug': topic.slug})) }}

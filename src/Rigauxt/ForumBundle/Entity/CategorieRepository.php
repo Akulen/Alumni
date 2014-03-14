@@ -31,11 +31,16 @@ class CategorieRepository extends EntityRepository
 						->getOneOrNullResult();
 		$latest = null;
 		if($retour != null)
-			$latest = $retour->getTopics()->first()->getPosts()->first();
+		{
+			$topic = $retour->getTopics()->first();
+			if($topic == null)
+				return null;
+			$latest = $topic->getPosts()->first();
+		}
 		foreach($retour->getFils() as $categories)
 		{
 			$temp = $this->getLastPost($categories->getId());
-			if($latest == null || $latest->getDate() < $temp->getDate())
+			if($latest == null || ($temp != null && $latest->getDate() < $temp->getDate()))
 				$latest = $temp;
 		}
 		return $latest;

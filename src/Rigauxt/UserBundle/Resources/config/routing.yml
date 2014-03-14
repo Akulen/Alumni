@@ -13,3 +13,7 @@ rigauxt_user_inbox:
 rigauxt_user_membre:
     pattern: /{username}/{membre}
     defaults: { _controller: RigauxtUserBundle:Profil:setMembre }
+
+rigauxt_user_edit:
+    pattern: /edit
+    defaults: { _controller: FOSUserBundle:Profile:edit }

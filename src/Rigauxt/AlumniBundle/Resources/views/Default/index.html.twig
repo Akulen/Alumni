@@ -49,14 +49,7 @@
 						href="{{ path('rigauxt_user_profile', {'username': news.auteur.username}) }}"
 					>
 						{{ format_avatar(news.auteur, 20) }}
-						{% if news.auteur.nom != null or news.auteur.prenom != null %}
-							{{ news.auteur.prenom }}
-							{% if news.auteur.prenom != null %}
-							{% endif %}
-							{{ news.auteur.nom }}
-						{% else %}
-							{{news.auteur.username}}
-						{% endif %}
+						{{ format_name(news.auteur) }}
 					</a>
 				</h5>
 				

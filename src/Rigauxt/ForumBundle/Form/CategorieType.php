@@ -8,6 +8,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CategorieType extends AbstractType
 {
+	protected $defaultContainer;
+	
+	public function __construct($defaultContainer = null)
+	{
+		$this->defaultContainer = $defaultContainer;
+	}
+	
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,10 +24,25 @@ class CategorieType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('slug')
-            ->add('theme')
-            ->add('pere')
-        ;
+            ->add('theme', 'entity', array(
+				'class'				=> 'RigauxtForumBundle:Theme',
+				'property'			=> 'name',
+				'multiple'			=> false,
+			))
+		;
+		if($this->defaultContainer != null)
+			$builder->add('pere', 'entity', array(
+						  'class'				=> 'RigauxtForumBundle:Categorie',
+						  'property'			=> 'nom',
+						  'multiple'			=> false,
+						  'preferred_choices'	=> array($this->defaultContainer)
+					));
+		else
+			$builder->add('pere', 'entity', array(
+						  'class'				=> 'RigauxtForumBundle:Categorie',
+						  'property'			=> 'nom',
+						  'multiple'			=> false,
+					));
     }
     
     /**
