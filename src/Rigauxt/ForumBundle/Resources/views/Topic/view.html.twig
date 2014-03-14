@@ -18,9 +18,9 @@
 			
 			{% for id, post in topic.posts %}
 				<div id="p{{ post.id }}">
-					<div class="row post-head" style="background-color: #ddd; border-top: 1px solid #aaa; margin: 0; padding: 3px">	
+					<div class="row post-head" style="background-color: #aaa; margin: 0; padding: 3px">	
 						<div class="col-md-2" style="text-align: center">
-							{{ format_name(post.author) }}
+							<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': post.author.username}) }}">{{ format_name(post.author) }}</a>
 						</div>
 						<div class="col-md-10">
 							<a href="#p{{ post.id }}">#</a> il y a {{ post.timeSince }}

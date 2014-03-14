@@ -68,15 +68,15 @@
 								</td>
 								<td>
 									{% if themesPost[theme][id] != null %}
-										<a class="removeLink" href="#">
+										<a class="removeLink" href="{{ path('rigauxt_forum_topic_view', {'slug': themesPost[theme][id].topic.slug}) }}#p{{ themesPost[theme][id].id }}">
 											Il y a {{ themesPost[theme][id].timeSince }}
 										</a>
 										par
-										<a class="removeLink" href="#">
+										<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': themesPost[theme][id].author.username}) }}">
 											{{ format_name(themesPost[theme][id].author, false) }}
 										</a>
 										dans
-										<a class="removeLink" href="#">
+										<a class="removeLink" href="{{ path('rigauxt_forum_topic_view', {'slug': themesPost[theme][id].topic.slug}) }}">
 											{{ themesPost[theme][id].topic.title }}
 										</a>
 									{% endif %}
@@ -145,11 +145,11 @@
 										</td>
 										<td style="color: #333">
 											{% if postItLastPost[id] != null %}
-												<a class="removeLink" href="#">
+												<a class="removeLink" href="{{ path('rigauxt_forum_topic_view', {'slug': postItLastPost[id].topic.slug}) }}#p{{ postItLastPost[id].id }}">
 													Il y a {{ postItLastPost[id].timeSince }}
 												</a>
 												par
-												<a class="removeLink" href="#">
+												<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': postItLastPost[id].author.username}) }}">
 													{{ format_name(postItLastPost[id].author, false) }}
 												</a>
 											{% else %}
@@ -203,11 +203,11 @@
 											</a>
 										</td>
 										<td style="color: #333">
-											<a class="removeLink" href="#">
+											<a class="removeLink" href="{{ path('rigauxt_forum_topic_view', {'slug': topicLastPost[id].topic.slug}) }}#p{{ topicLastPost[id].id }}">
 												Il y a {{ topicLastPost[id].timeSince }}
 											</a>
 											par
-											<a class="removeLink" href="#">
+											<a class="removeLink" href="{{ path('rigauxt_user_profile', {'username': topicLastPost[id].author.username}) }}">
 												{{ format_name(topicLastPost[id].author, false) }}
 											</a>
 										</td>
@@ -235,9 +235,9 @@
 		</div>
 	</div>
 	<div class="alert alert-success">
-		// Deja fait : Forum avec : catégories, (arbre) sous-forums, posts (avec possibilité de mettre en post-it, ...), messages dans posts, tri et affichage des topics en fonction du type, ...
+		// Deja fait : Forum avec : catégories, (arbre) sous-forums, posts (avec possibilité de mettre en post-it, ...), messages dans posts, tri et affichage des topics en fonction du type, ajout d'info complémentaires (nb posts, date dernier post, date premier post, ...),  ...
 	</div>
 	<div class="alert alert-warning">
-		// Todo : Gestion des catégories, gestion poussée des topics (modif, suppression, déplacement, ...), ajout d'info complémentaires (nb posts, date dernier post, date premier post, ...), ajout d'info sur les auteurs(nb posts, info comme job, ...)
+		// Todo : Gestion des catégories (modifiction, deplacement), gestion poussée des topics (modif, suppression, déplacement, ...), ...
 	</div>
 {% endblock %}
