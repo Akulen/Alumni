@@ -141,10 +141,7 @@
 						<ul class="nav navbar-nav">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<img
-										style="width: 20px; height: auto"
-										src="{{ asset_if(app.user.webPath) }}" alt="{{ app.user.avatarAlt }}"
-									/>
+									{{ format_avatar(app.user, 20) }}
 									{% if app.user.nom != null or app.user.prenom != null %}
 										{{ app.user.prenom }}
 										{% if app.user.prenom != null %}
